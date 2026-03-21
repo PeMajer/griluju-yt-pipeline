@@ -50,6 +50,21 @@ RSpec.describe Blog::VttCleanerService do
     it "vrátí prázdný string pro prázdný vstup" do
       expect(described_class.call("")).to eq("")
     end
+
+    it "odstraní Whisper VTT timestamp formát MM:SS.mmm (bez hodin)" do
+      raw = <<~VTT
+        WEBVTT
+
+        00:00.000 --> 00:04.120
+        Have you been smoking your steaks the wrong way?
+
+        00:04.120 --> 00:09.840
+        Today we're going to test it out.
+      VTT
+
+      result = described_class.call(raw)
+      expect(result).to eq("Have you been smoking your steaks the wrong way? Today we're going to test it out.")
+    end
   end
 
   describe ".longest_suffix_prefix_overlap" do

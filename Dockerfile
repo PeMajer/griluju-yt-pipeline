@@ -1,7 +1,7 @@
 # Produkční Dockerfile — pre-download Whisper model medium (Varianta A)
 # Build: docker build -t griluju-yt-pipeline .
 
-FROM ruby:3.3-slim AS base
+FROM ruby:3.3.8-slim AS base
 
 WORKDIR /app
 
