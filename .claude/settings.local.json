@@ -1,10 +1,5 @@
 {
   "permissions": {
-    "allow": [
-      "Bash(mv /Users/majer/Projects/griluju-yt-pipeline/.claude/docs/pipeline-plan.md /Users/majer/Projects/griluju-yt-pipeline/docs/)",
-      "Bash(mv /Users/majer/Projects/griluju-yt-pipeline/.claude/docs/architecture.md /Users/majer/Projects/griluju-yt-pipeline/docs/)",
-      "Bash(mv /Users/majer/Projects/griluju-yt-pipeline/.claude/docs/lessons.md /Users/majer/Projects/griluju-yt-pipeline/docs/)",
-      "Bash(rmdir /Users/majer/Projects/griluju-yt-pipeline/.claude/docs)"
-    ]
+    "defaultMode": "bypassPermissions"
   }
 }
