@@ -14,7 +14,7 @@ class ChannelPollingJob < ApplicationJob
   def recover_stuck_videos
     # metadata_fetched déle než 30 min → FetchTranscriptJob se nikdy nespustil
     YoutubeVideo.where(processing_status: "metadata_fetched")
-                .where("updated_at < ?", 30.minutes.ago)
+                .where("youtube_videos.updated_at < ?", 30.minutes.ago)
                 .joins(:youtube_channel)
                 .where(youtube_channels: { active: true })
                 .find_each do |video|
@@ -24,7 +24,7 @@ class ChannelPollingJob < ApplicationJob
 
     # new déle než 60 min → ProcessVideoJob se nikdy nespustil
     YoutubeVideo.where(processing_status: "new")
-                .where("updated_at < ?", 60.minutes.ago)
+                .where("youtube_videos.updated_at < ?", 60.minutes.ago)
                 .joins(:youtube_channel)
                 .where(youtube_channels: { active: true })
                 .find_each do |video|
