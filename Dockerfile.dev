@@ -1,7 +1,7 @@
 # Dev Dockerfile — bez Whisper model pre-download (stáhne se do volume při prvním jobu)
 # Výrazně menší image než produkční Dockerfile.
 
-FROM ruby:3.3-slim
+FROM ruby:3.3.8-slim
 
 WORKDIR /app
 

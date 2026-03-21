@@ -11,7 +11,7 @@ module Blog
     def self.strip_vtt(raw_vtt)
       raw_vtt
         .lines
-        .reject { |l| l =~ /^WEBVTT|^\d{2}:\d{2}:\d{2}\.\d{3} -->|^\s*$/ }
+        .reject { |l| l =~ /^WEBVTT|^\d{2}:\d{2}(?::\d{2})?\.\d{3} -->|^\s*$/ }
         .map { |l| l.gsub(/<[^>]+>/, "").strip }
         .reject(&:empty?)
     end
