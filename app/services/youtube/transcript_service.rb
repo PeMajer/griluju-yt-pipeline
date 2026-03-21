@@ -30,7 +30,6 @@ module Youtube
 
       if transcript
         @video.update!(processing_status: "transcript_ready")
-        NotifyBlogJob.perform_later(@video.id)
       else
         @video.mark_failed!("no_transcript")
       end

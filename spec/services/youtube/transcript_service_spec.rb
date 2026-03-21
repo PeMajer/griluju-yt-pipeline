@@ -32,7 +32,6 @@ RSpec.describe Youtube::TranscriptService do
         allow(FileUtils).to receive(:mkdir_p)
         allow(FileUtils).to receive(:rm_f)
         stub_vtt_file("/tmp/vtt/#{video.youtube_video_id}.en.vtt", SAMPLE_VTT)
-        allow(NotifyBlogJob).to receive(:perform_later)
       end
 
       it "vytvoří VideoTranscript se source_type manual_subtitles" do
@@ -43,11 +42,6 @@ RSpec.describe Youtube::TranscriptService do
       it "nastaví processing_status na transcript_ready" do
         service.call
         expect(video.reload.processing_status).to eq("transcript_ready")
-      end
-
-      it "spustí NotifyBlogJob" do
-        service.call
-        expect(NotifyBlogJob).to have_received(:perform_later).with(video.id)
       end
 
       it "uloží language detekovaný z názvu souboru" do
@@ -101,8 +95,6 @@ RSpec.describe Youtube::TranscriptService do
         allow(File).to receive(:exist?).with(audio_path).and_return(true)
         allow(File).to receive(:exist?).with(vtt_path).and_return(true)
         allow(File).to receive(:read).with(vtt_path).and_return(SAMPLE_VTT)
-
-        allow(NotifyBlogJob).to receive(:perform_later)
       end
 
       it "vytvoří VideoTranscript se source_type whisper_local" do
@@ -162,7 +154,6 @@ RSpec.describe Youtube::TranscriptService do
         allow(File).to receive(:exist?).and_call_original
         allow(File).to receive(:exist?).with(auto_vtt).and_return(true)
         allow(File).to receive(:read).with(auto_vtt).and_return(SAMPLE_VTT)
-        allow(NotifyBlogJob).to receive(:perform_later)
       end
 
       it "vytvoří VideoTranscript se source_type auto_captions_youtube" do
@@ -189,12 +180,6 @@ RSpec.describe Youtube::TranscriptService do
       it "uloží failed_reason no_transcript" do
         service.call
         expect(video.reload.failed_reason).to eq("no_transcript")
-      end
-
-      it "nespustí NotifyBlogJob" do
-        allow(NotifyBlogJob).to receive(:perform_later)
-        service.call
-        expect(NotifyBlogJob).not_to have_received(:perform_later)
       end
     end
   end
@@ -223,7 +208,6 @@ RSpec.describe Youtube::TranscriptService do
       allow(FileUtils).to receive(:mkdir_p)
       allow(FileUtils).to receive(:rm_f)
       stub_vtt_file("/tmp/vtt/#{video.youtube_video_id}.en.vtt", SAMPLE_VTT)
-      allow(NotifyBlogJob).to receive(:perform_later)
     end
 
     it "nastaví transcript_quality_score 3 pro manual_subtitles" do
