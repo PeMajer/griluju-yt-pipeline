@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "language": "czech",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash(git commit*)",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/majer/Projects/griluju-yt-pipeline/.claude/hooks/pre-commit-check.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "INPUT=$(cat); CMD=$(python3 -c \"import json,sys; print(json.loads(sys.stdin.read()).get('tool_input',{}).get('command',''))\" <<< \"$INPUT\" 2>/dev/null); if echo \"$CMD\" | grep -qE 'push\\s+--force|push\\s+-f\\b'; then echo 'BLOCKED: git push --force is not allowed on this project.' >&2; exit 2; fi; exit 0"
+          }
+        ]
+      }
+    ]
+  }
+}
