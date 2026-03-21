@@ -1,0 +1,62 @@
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: griluju_yt_pipeline_development
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7-alpine
+    volumes:
+      - redis_data:/data
+    ports:
+      - "6379:6379"
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec rails server -b 0.0.0.0
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/griluju_yt_pipeline_development
+      REDIS_URL: redis://redis:6379/0
+      RAILS_ENV: development
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+      - redis
+
+  worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: bundle exec sidekiq -C config/sidekiq.yml
+    environment:
+      DATABASE_URL: postgresql://postgres:password@db:5432/griluju_yt_pipeline_development
+      REDIS_URL: redis://redis:6379/0
+      RAILS_ENV: development
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+      - bundle_cache:/usr/local/bundle
+      - whisper_cache:/root/.cache
+    depends_on:
+      - db
+      - redis
+
+volumes:
+  postgres_data:
+  redis_data:
+  bundle_cache:
+  whisper_cache:

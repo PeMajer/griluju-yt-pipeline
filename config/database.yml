@@ -1,0 +1,18 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+  url: <%= ENV["DATABASE_URL"] %>
+
+development:
+  <<: *default
+  database: griluju_yt_pipeline_development
+
+test:
+  <<: *default
+  url: <%= ENV.fetch("DATABASE_URL_TEST") { ENV["DATABASE_URL"]&.sub("_development", "_test") } %>
+  database: griluju_yt_pipeline_test
+
+production:
+  <<: *default
+  database: griluju_yt_pipeline_production
