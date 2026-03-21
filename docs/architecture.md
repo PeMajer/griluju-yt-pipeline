@@ -119,10 +119,7 @@ Priorita titulků:
 2. Whisper local (`whisper-ctranslate2`) — pro videa bez manuálních titulků
 3. YouTube auto-captions (`--write-auto-subs`) — záchrana pokud Whisper selže
 
-Po úspěchu → `VttCleaner.call` → uložení `VideoTranscript` → `transcript_ready` → enqueue `NotifyBlogJob`
-
-### NotifyBlogJob
-POST na `BLOG_WEBHOOK_URL` s HMAC-SHA256 signaturou. Po úspěchu → `webhook_sent_at = Time.current`.
+Po úspěchu → `VttCleaner.call` → uložení `VideoTranscript` → `transcript_ready`.
 
 ---
 
@@ -153,7 +150,6 @@ Každý job má `rescue StandardError` → `video.increment!(:retry_count)` → 
 | `Youtube::VideoMetadataService` | Volání yt-dlp --dump-json |
 | `Youtube::TranscriptService` | Orchestrace stahování titulků / Whisper |
 | `Blog::VttCleanerService` | Strip VTT tagů + sliding-window deduplikace rolling captions |
-| `Blog::WebhookService` | HMAC-SHA256 podpis + POST notifikace blogu |
 
 **Shell injection prevence:** vždy `Open3.capture3(příkaz, arg1, arg2, ...)` s polem argumentů, nikdy string interpolace.
 
@@ -209,10 +205,7 @@ rails channels:resolve_id URL=https://youtube.com/@Handle  # Zjistí channel_id 
 ```
 DATABASE_URL
 REDIS_URL
-BLOG_WEBHOOK_URL     # URL blogu pro POST notifikace
-BLOG_WEBHOOK_SECRET  # HMAC klíč — nikdy neposílat v hlavičce
-BLOG_API_KEY         # API klíč pro X-Api-Key hlavičku
-APP_URL              # Base URL pipeline (pro transcript_url v payloadu)
+BLOG_API_KEY         # API klíč pro X-Api-Key hlavičku (blog agent fetchuje přepisy)
 ```
 
 ---

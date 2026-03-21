@@ -1,24 +1,41 @@
-# README
+# griluju-yt-pipeline
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Internal data pipeline for [griluju.cz](https://griluju.cz) — a Czech BBQ blog. Monitors YouTube channels, fetches transcripts, and exposes them via REST API for downstream article generation.
 
-Things you may want to cover:
+## What it does
 
-* Ruby version
+```
+YouTube RSS → detect new videos → download subtitles / Whisper STT → clean transcript → store in DB
+                                                                                              ↓
+                                                                              Blog agent fetches via API
+                                                                              and generates Czech articles
+```
 
-* System dependencies
+The pipeline is a **data collector only** — no AI analysis, no article writing. That happens on the blog side.
 
-* Configuration
+## Quick start
 
-* Database creation
+```bash
+cp .env.example .env   # fill in the values
+docker compose up --build
+docker compose exec web rails db:create db:migrate
+```
 
-* Database initialization
+First build downloads the Whisper `medium` model (~1.5 GB). Subsequent starts are fast.
 
-* How to run the test suite
+- **API:** http://localhost:3000
+- **Sidekiq UI:** http://localhost:3000/sidekiq
 
-* Services (job queues, cache servers, search engines, etc.)
+## Tech stack
 
-* Deployment instructions
+Ruby on Rails · PostgreSQL · Sidekiq · yt-dlp · Whisper (whisper-ctranslate2) · Docker Compose
 
-* ...
+## Documentation
+
+| Document | Description |
+|---|---|
+| [docs/architecture.md](docs/architecture.md) | System design, data models, job pipeline, API reference |
+| [docs/setup.md](docs/setup.md) | Local development setup, environment variables, testing |
+| [docs/runbook.md](docs/runbook.md) | Operations: adding channels, monitoring, failure recovery |
+| [docs/decisions.md](docs/decisions.md) | Key architectural decisions and the reasoning behind them |
+| [docs/lessons.md](docs/lessons.md) | Hard-won lessons from development |

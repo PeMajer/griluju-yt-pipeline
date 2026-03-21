@@ -21,7 +21,8 @@ module Api
       def apply_filters(scope)
         scope = scope.where(processing_status: params[:status])  if params[:status].present?
         scope = scope.where(webhook_sent_at: nil)                if params[:webhook_sent_at] == "null"
-        scope = scope.where(queued_for_blog: true)               if params[:queued_for_blog] == "true"
+        scope = scope.where(queued_for_blog: true)                if params[:queued_for_blog] == "true"
+        scope = scope.where(queued_for_blog: false)               if params[:queued_for_blog] == "false"
         scope
       end
 
