@@ -66,6 +66,6 @@ Nepokračuj ve flickování symptomů. Místo toho:
 1. Přehodnoť základní předpoklady — je problém tam kde si myslíš?
 2. Zkontroluj zda problém není v konfiguraci (Sidekiq concurrency, Docker networking, ENV proměnné)
 3. Zkontroluj zda yt-dlp verze stále funguje s YouTube (`yt-dlp --version` a test stažení)
-4. Přečti `.claude/docs/architecture.md` nebo `.claude/docs/lessons.md` od začátku — možná tam je odpověď
+4. Přečti `docs/architecture.md` nebo `docs/lessons.md` od začátku — možná tam je odpověď
 
 Toto pravidlo existuje protože po 3 neúspěšných pokusech je velmi pravděpodobné, že řešíš špatný problém nebo na špatném místě.

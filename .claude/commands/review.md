@@ -59,7 +59,7 @@ Projdi diff a zhodnoť:
 Teprve když je kód finální (rubocop OK, testy OK, bezpečnost OK), zkontroluj dokumentaci:
 
 ```bash
-grep -r "<název_třídy_nebo_metody>" .claude/docs/ --include="*.md" -l
+grep -r "<název_třídy_nebo_metody>" docs/ --include="*.md" -l
 ```
 
 Mapování co dokumentovat kde:

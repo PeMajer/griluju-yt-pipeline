@@ -66,6 +66,6 @@ Vypiš stručné shrnutí:
 
 ### 6. Aktualizace lessons.md
 
-Pokud bylo odhaleno nové gotcha, technický problém nebo korekce od uživatele → přidej do `.claude/docs/lessons.md`.
+Pokud bylo odhaleno nové gotcha, technický problém nebo korekce od uživatele → přidej do `docs/lessons.md`.
 
 Neukládej: hotovou práci, věci které jsou v kódu nebo git historii.

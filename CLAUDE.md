@@ -15,9 +15,9 @@ Provoz: **lokálně v OrbStack VM** (`griluju-yt`), výhledově přesun na **Het
 
 ## Detailed docs
 
-- **Architektura & stack:** `.claude/docs/architecture.md`
-- **Pipeline plán (reference):** `.claude/docs/pipeline-plan.md`
-- **Lessons:** `.claude/docs/lessons.md`
+- **Architektura & stack:** `docs/architecture.md`
+- **Pipeline plán (reference):** `docs/pipeline-plan.md`
+- **Lessons:** `docs/lessons.md`
 
 ## Dokumentace (plná reference)
 
