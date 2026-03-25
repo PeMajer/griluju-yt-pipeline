@@ -10,7 +10,7 @@ gem "bootsnap", require: false
 # Background jobs
 gem "sidekiq", "~> 7.0"
 gem "sidekiq-cron", "~> 2.0"
-gem "connection_pool", "~> 2.4"  # 3.0.x změnilo API TimedStack#pop, nekompatibilní se Sidekiq 7.3.x
+gem "connection_pool", "~> 3.0"  # 3.0.x změnilo API TimedStack#pop, nekompatibilní se Sidekiq 7.3.x
 
 # HTTP klient pro webhook notifikace
 gem "http", "~> 5.2"
