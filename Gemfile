@@ -16,7 +16,7 @@ gem "connection_pool", "~> 2.4"  # 3.0.x změnilo API TimedStack#pop, nekompatib
 gem "http", "~> 5.2"
 
 # RSS/Atom parser pro YouTube Atom feeds (stdlib rss špatně parsuje yt: namespace)
-gem "feedjira", "~> 3.2"
+gem "feedjira", "~> 4.0"
 
 group :development, :test do
   gem "debug", platforms: %i[mri mingw x64_mingw], require: "debug/prelude"
