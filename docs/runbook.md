@@ -179,6 +179,19 @@ docker compose build && docker compose up -d
 
 Nasazení přes Kamal — konfigurace v `.kamal/`. Secrets jsou v `.kamal/secrets` (není v gitu).
 
+### TODO: Kamal konfigurace (nedokončeno)
+
+Kamal je přidán do projektu, ale **není nakonfigurován pro produkci**. Před nasazením na Hetzner je potřeba:
+
+- [ ] Vytvořit server na Hetzner CX32 a zjistit IP adresu
+- [ ] Vyplnit `config/deploy.yml` — server IP, Docker registry, service name
+- [ ] Nastavit `.kamal/secrets` — registry password, `RAILS_MASTER_KEY`
+- [ ] Přidat SSH klíč na server (`ssh-copy-id root@<server-ip>`)
+- [ ] Otestovat: `kamal setup` → `kamal deploy`
+- [ ] Nastavit ENV proměnné na serveru (viz `.env.example`): `YOUTUBE_API_KEY`, `BLOG_API_KEY`, atd.
+- [ ] Ověřit, že Whisper model je stažen do Docker image (je v `Dockerfile`, ale ověřit na produkci)
+- [ ] Nastavit cron / Sidekiq scheduler pro `ChannelPollingJob` (každých 6h)
+
 ```bash
 kamal deploy
 kamal logs
