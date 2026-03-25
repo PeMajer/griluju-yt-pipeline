@@ -8,7 +8,7 @@ gem "puma", ">= 5.0"
 gem "bootsnap", require: false
 
 # Background jobs
-gem "sidekiq", "~> 7.0"
+gem "sidekiq", "~> 8.0"
 gem "sidekiq-cron", "~> 2.0"
 gem "connection_pool", "~> 2.4"  # 3.0.x změnilo API TimedStack#pop, nekompatibilní se Sidekiq 7.3.x
 
