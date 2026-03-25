@@ -8,7 +8,7 @@ class CreateYoutubeChannels < ActiveRecord::Migration[8.1]
       t.jsonb    :tags,             null: false, default: []
       t.datetime :last_checked_at
       t.string   :default_language, null: false, default: "en"
-      t.integer  :backfill_limit,   null: false, default: 30
+      t.integer  :backfill_limit,   null: false, default: 40
 
       t.timestamps
     end

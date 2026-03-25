@@ -26,14 +26,14 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_102023) do
     t.datetime "updated_at", null: false
     t.integer "word_count", default: 0, null: false
     t.bigint "youtube_video_id", null: false
-    t.index ["language"], name: "index_video_transcripts_on_language"
-    t.index ["source_type"], name: "index_video_transcripts_on_source_type"
-    t.index ["youtube_video_id"], name: "index_video_transcripts_on_youtube_video_id"
+    t.index [ "language" ], name: "index_video_transcripts_on_language"
+    t.index [ "source_type" ], name: "index_video_transcripts_on_source_type"
+    t.index [ "youtube_video_id" ], name: "index_video_transcripts_on_youtube_video_id"
   end
 
   create_table "youtube_channels", force: :cascade do |t|
     t.boolean "active", default: true, null: false
-    t.integer "backfill_limit", default: 30, null: false
+    t.integer "backfill_limit", default: 40, null: false
     t.string "channel_id", null: false
     t.string "channel_url"
     t.datetime "created_at", null: false
@@ -42,8 +42,8 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_102023) do
     t.string "name", null: false
     t.jsonb "tags", default: [], null: false
     t.datetime "updated_at", null: false
-    t.index ["active"], name: "index_youtube_channels_on_active"
-    t.index ["channel_id"], name: "index_youtube_channels_on_channel_id", unique: true
+    t.index [ "active" ], name: "index_youtube_channels_on_active"
+    t.index [ "channel_id" ], name: "index_youtube_channels_on_channel_id", unique: true
   end
 
   create_table "youtube_videos", force: :cascade do |t|
@@ -62,13 +62,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_03_21_102023) do
     t.datetime "webhook_sent_at"
     t.bigint "youtube_channel_id", null: false
     t.string "youtube_video_id", null: false
-    t.index ["processing_status", "updated_at"], name: "idx_videos_status_updated"
-    t.index ["processing_status", "webhook_sent_at"], name: "idx_videos_status_webhook"
-    t.index ["processing_status"], name: "index_youtube_videos_on_processing_status"
-    t.index ["queued_for_blog"], name: "index_youtube_videos_on_queued_for_blog"
-    t.index ["webhook_sent_at"], name: "index_youtube_videos_on_webhook_sent_at"
-    t.index ["youtube_channel_id"], name: "index_youtube_videos_on_youtube_channel_id"
-    t.index ["youtube_video_id"], name: "index_youtube_videos_on_youtube_video_id", unique: true
+    t.index [ "processing_status", "updated_at" ], name: "idx_videos_status_updated"
+    t.index [ "processing_status", "webhook_sent_at" ], name: "idx_videos_status_webhook"
+    t.index [ "processing_status" ], name: "index_youtube_videos_on_processing_status"
+    t.index [ "queued_for_blog" ], name: "index_youtube_videos_on_queued_for_blog"
+    t.index [ "webhook_sent_at" ], name: "index_youtube_videos_on_webhook_sent_at"
+    t.index [ "youtube_channel_id" ], name: "index_youtube_videos_on_youtube_channel_id"
+    t.index [ "youtube_video_id" ], name: "index_youtube_videos_on_youtube_video_id", unique: true
   end
 
   add_foreign_key "video_transcripts", "youtube_videos"
