@@ -1,0 +1,12 @@
+{
+  "ignored_warnings": [
+    {
+      "fingerprint": "94d60bf4e7c8dcf4e8bffc4c496b1d3132580e2f543d23ea527962fff04f7eba",
+      "note": "False positive — Open3.capture3 uses array form (not shell string), no shell injection possible. String interpolation is only in the output file path, not in command name."
+    },
+    {
+      "fingerprint": "f400732d6522fb0e4ad8349dfec5712a6da1ef313f8a160f860b94033d371b35",
+      "note": "False positive — Open3.capture3 uses array form (not shell string), no shell injection possible. String interpolation is only in the output file path, not in command name."
+    }
+  ]
+}
